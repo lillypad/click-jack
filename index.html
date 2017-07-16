@@ -1,0 +1,63 @@
+<html>
+  <title>ClickJacking Example</title>
+  <style>
+  body{
+    background-color: lightblue;
+  }
+  #btnclear{
+    background-color: orange;
+  }
+  #btnshow{
+    background-color: orange;
+  }
+  #clickbait{
+    background-color: orange;
+  }
+  </style>
+  <body>
+    <button onclick="clear_screen()" type="button" id="btnclear">Clear Screen</button>
+    <button onclick="show_button()" type="button" id="btnshow">Show Button</button>
+    <button style="position:absolute;background:transparent;border:none;outline:none;width:200px;height:50px;" onclick="clickjack()" type="button" id="clickbait"></button>
+    <div id="mousepos"></div>
+    <div id="clickjacked"></div>
+    <script>
+      function show_button(){
+        document.getElementById('clickbait').style.background = "";
+        document.getElementById('clickbait').style.border = "";
+        document.getElementById('clickbait').style.outline = "";
+        document.getElementById('clickbait').innerHTML = "Click Jack Button";
+      }
+
+      function clickjack(){
+        document.getElementById('clickjacked').innerHTML += "Click Jacked! </br>";
+        //Your Malicious Code Goes Here
+      }
+      function clear_screen(){
+        document.getElementById('mousepos').innerHTML = "";
+        document.getElementById('clickjacked').innerHTML = "";
+        document.getElementById('clickbait').style.background = "transparent";
+        document.getElementById('clickbait').style.border = "none";
+        document.getElementById('clickbait').style.outline = "none";
+        document.getElementById('clickbait').innerHTML = "";
+      }
+      function enablejack(){
+        document.getElementById('clickbait').style.display = "none";
+      }
+      function disablejack(){
+        document.getElementById('clickbait').style.display = "";
+      }
+      document.getElementById('btnclear').addEventListener('mouseover', enablejack);
+      document.getElementById('btnclear').addEventListener('mouseout', disablejack);
+      document.getElementById('btnshow').addEventListener('mouseover', enablejack);
+      document.getElementById('btnshow').addEventListener('mouseout', disablejack);
+      document.onmousemove = (event) => {
+        var mousex = event.pageX;
+        var mousey = event.pageY;
+        document.getElementById('mousepos').innerHTML = "Mouse X: " + mousex + "</br>";
+        document.getElementById('mousepos').innerHTML += "Mouse Y: " + mousey + "</br>";
+        document.getElementById('clickbait').style.top = mousey;
+        document.getElementById('clickbait').style.left = mousex - (parseInt(document.getElementById('clickbait').style.width)/2);
+      }
+    </script>
+  </body>
+</html>
