@@ -1,6 +1,17 @@
   # About this project
 This project aims to show how easy it is to combine javascript and html to perform clickjacking.
 
+  # Setup
+  ```bash
+  sudo apt-get update
+  sudo apt-get install apache2
+  sudo /etc/init.d/apache2 start
+  git clone https://github.com/lillypad/click-jack.git
+  cd click-jack/
+  sudo ln -s index.html /var/www/html/index.html
+  ```
+  Open browser and go to http://127.0.0.1
+  
   # Screenshots
   ![Clickjacking](img/screenie.png)
 
